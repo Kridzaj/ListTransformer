@@ -6,7 +6,18 @@ namespace Assignment.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Write("Enter name:");
+            string name = Console.ReadLine();
+            Console.Write("Enter last name:");
+            string lastName = Console.ReadLine();
+
+            var list = ListProcessor.PrepareList(1, 100, name, lastName);
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ReadLine();
         }
     }
 }
