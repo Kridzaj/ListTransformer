@@ -8,16 +8,18 @@ CREATE PROCEDURE [dbo].[ExecuteRequest]
 AS
 BEGIN
 	
-	declare @Name nvarchar(50), @LastName nvarchar(50)
+	declare @Name nvarchar(50), @LastName nvarchar(50), @ProcessRequestId int
 
-	select @Name = [Name], 
+	select 
+	@ProcessRequestId = ProcessRequestId,
+	@Name = [Name], 
 	@LastName = [LastName] from dbo.ProcessRequest
 	where Guid = @GUID
 
 	update dbo.ProcessRequest
 				set progress = 0,
 				ProcessStatusId = 3 -- InProcess
-			where Guid = @GUID
+			where ProcessRequestId = @ProcessRequestId
 
 	create table #OutputsTemp 
 	(
@@ -38,7 +40,7 @@ BEGIN
 		BEGIN
 			update dbo.ProcessRequest
 				set Progress = @ind
-			where GUID = @GUID
+			where  ProcessRequestId = @ProcessRequestId
 		END
 
 
@@ -49,11 +51,11 @@ BEGIN
 
 	begin tran
 		insert into dbo.Output
-		select @Guid,Ordinal,Value  from #OutputsTemp
+		select Ordinal,Value,@ProcessRequestId  from #OutputsTemp
 
 		update dbo.ProcessRequest
 				set ProcessStatusId = 4 -- Processed
-		where GUID = @GUID
+		where ProcessRequestId = @ProcessRequestId
 
 	commit
 
