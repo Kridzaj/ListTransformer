@@ -18,8 +18,6 @@ namespace Assignment.ConsoleApp
     {
         static void Main(string[] args)
         {
-
-
             ServiceProvider serviceProvider = Init();
             var listService = serviceProvider.GetService<IListProcessor>();
 

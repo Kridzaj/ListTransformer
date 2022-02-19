@@ -11,7 +11,7 @@
             <label>Name</label>
         </td>
         <td>
-            <input @bind="processReq.Name"/>            
+            <input @bind="processReq.Name" />
         </td>
     </tr>
     <tr>
@@ -24,7 +24,7 @@
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="OnSendSerivce" >Send</button>
+            <button class="btn btn-primary" @onclick="OnSendSerivce">Send</button>
         </td>
         <td>
             <input @bind="processReq.Guid" />
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="OnCheckStatusService" >Check Status</button>
+            <button class="btn btn-primary" @onclick="OnCheckStatusService">Check Status</button>
         </td>
         <td>
         </td>
@@ -43,11 +43,12 @@
             <label>Status : </label> <label>@processReq.ProcessStatus</label>
         </td>
         <td>
-            <label>Progress : </label><label>@processReq.Progress</label> %
+            <label>Progress :</label><label>@processReq.Progress</label>%
         </td>
     </tr>
 
 </table>
+
 
 <table class="table">
     <thead>

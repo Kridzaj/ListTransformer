@@ -1,4 +1,6 @@
-﻿-- =============================================
+﻿
+
+-- =============================================
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
@@ -18,7 +20,7 @@ BEGIN
 
 	update dbo.ProcessRequest
 				set progress = 0,
-				ProcessStatusId = 3 -- InProcess
+				ProcessStatusId = 2 -- InProcess
 			where ProcessRequestId = @ProcessRequestId
 
 	create table #OutputsTemp 
@@ -45,8 +47,6 @@ BEGIN
 
 
 		select @ind = @ind +1
-		select @RandomDelay = ABS(CHECKSUM(NEWID()) % 3)
-		--WAITFOR DELAY @RandomDelay
 	END
 
 	begin tran
@@ -54,7 +54,7 @@ BEGIN
 		select Ordinal,Value,@ProcessRequestId  from #OutputsTemp
 
 		update dbo.ProcessRequest
-				set ProcessStatusId = 4 -- Processed
+				set ProcessStatusId = 3 -- Processed
 		where ProcessRequestId = @ProcessRequestId
 
 	commit

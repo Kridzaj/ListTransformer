@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Assignment.Domain.Repositories
 {
-    public interface IProcessRequestRepository: IRepositoryBase<ProcessRequest>
+    public interface IRepositoryBase<T>
     {
-        ProcessRequest GetByGuid(Guid guid);
-        void ExecuteRequest(Guid guid);
+        T GetById(int id);
+        IEnumerable<T> GetAll();
+        T Add(T entity);
+
     }
 }

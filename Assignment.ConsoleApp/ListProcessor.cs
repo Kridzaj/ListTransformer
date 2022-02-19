@@ -28,10 +28,16 @@ namespace Assignment.ConsoleApp
             {
                 retVal.Add(ConstructOutput(i, firstName, lastName));
             }
-
             return retVal;
         }
 
+        /// <summary>
+        /// Constructs the output value string
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
         public static OutputDto ConstructOutput(int index, string firstName, string lastName)
         {
             OutputDto retVal = new OutputDto();
@@ -49,7 +55,6 @@ namespace Assignment.ConsoleApp
             {
                 retVal.Value = firstName;
             }
-
             return retVal;
         }
     }

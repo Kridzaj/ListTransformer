@@ -25,11 +25,11 @@ namespace Assignment.Infrastructure.Repositories
         public void SaveChanges()
            => _dbContext.SaveChanges();
 
-        public int Add(ProcessRequest entity)
+        public ProcessRequest Add(ProcessRequest entity)
         {
             _dbContext.Add(entity);
             SaveChanges();
-            return entity.ProcessRequestId;
+            return entity;
         }
 
         public IEnumerable<ProcessRequest> GetAll()
