@@ -17,6 +17,7 @@ using Assignment.Domain.Repositories;
 using Assignment.Infrastructure.Repositories;
 using Assignment.Application.Services;
 using Assignment.Application.Mappers;
+using System.Net.Http;
 
 namespace Assignment.Web
 {
@@ -49,6 +50,10 @@ namespace Assignment.Web
             services.AddSingleton(mapper);
             services.AddScoped<IProcessRequestRepository, ProcessRequestRepository>();
             services.AddScoped<IListProcessor, ListProcessorService>();
+            string baseAdd = Configuration.GetValue<string>("APIbaseAddress");
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAdd) });
+
+            services.AddScoped<IListProcessorApi, ListProcessorApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

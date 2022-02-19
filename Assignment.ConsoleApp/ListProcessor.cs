@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assignment.Application.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,31 +17,37 @@ namespace Assignment.ConsoleApp
         /// <param name="firstName">First Name</param>
         /// <param name="lastName">Last Name</param>
         /// <returns></returns>
-        public static List<string> PrepareList(int start, int end, string firstName, string lastName)
+        public static List<OutputDto> PrepareList(int start, int end, string firstName, string lastName)
         {
-            List<string> retVal = new List<string>();
+            List<OutputDto> retVal = new List<OutputDto>();
             if (start > end)
             {
                 throw new Exception("Invalid start and end values");
             }
             for (int i = start; i <= end; i++)
             {
-                if (i % 15 == 0)
-                {
-                    retVal.Add($"{firstName}{lastName}");
-                    continue;
-                }
-                if (i % 5 == 0)
-                {
-                    retVal.Add(lastName);
-                    continue;
-                }
-                if (i % 3 == 0)
-                {
-                    retVal.Add(firstName);
-                    continue;
-                }
-                retVal.Add(i.ToString());
+                retVal.Add(ConstructOutput(i, firstName, lastName));
+            }
+
+            return retVal;
+        }
+
+        public static OutputDto ConstructOutput(int index, string firstName, string lastName)
+        {
+            OutputDto retVal = new OutputDto();
+            retVal.Ordinal = index;
+            retVal.Value = index.ToString();
+            if (index % 15 == 0)
+            {
+                retVal.Value = $"{firstName}{lastName}";
+            }
+            if (index % 5 == 0 && index % 15 != 0)
+            {
+                retVal.Value = lastName;
+            }
+            if (index % 3 == 0 && index % 15 != 0)
+            {
+                retVal.Value = firstName;
             }
 
             return retVal;

@@ -1,10 +1,9 @@
-﻿@page "/"
+﻿@page "/api"
 
-@using Assignment.Application.Services;
 @using Assignment.Application.DTO;
+@using Assignment.Web.Data
 
-
-@inject IListProcessor sqlClient
+@inject IListProcessorApi apiClient
 
 <table class="table">
     <tr>
@@ -12,7 +11,7 @@
             <label>Name</label>
         </td>
         <td>
-            <input @bind="processReq.Name" />
+            <input @bind="processReq.Name"/>            
         </td>
     </tr>
     <tr>
@@ -20,14 +19,12 @@
             <label>Last Name</label>
         </td>
         <td>
-            <div>
-                <input @bind="processReq.LastName" />
-            </div>
+            <input @bind="processReq.LastName" />
         </td>
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="Send" >Send</button>
+            <button class="btn btn-primary" @onclick="OnSendSerivce" >Send</button>
         </td>
         <td>
             <input @bind="processReq.Guid" />
@@ -36,7 +33,7 @@
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="CheckStatus">Check Status</button>
+            <button class="btn btn-primary" @onclick="OnCheckStatusService" >Check Status</button>
         </td>
         <td>
         </td>
@@ -75,22 +72,18 @@
     </tbody>
 </table>
 
-
-
 @code {
-
-
-
     private ProcessRequestDto processReq = new ProcessRequestDto();
 
-    private void Send()
+    private async Task OnSendSerivce()
     {
-        processReq.Guid = sqlClient.ProcessList(processReq.Name, processReq.LastName);
+        processReq.Guid = await apiClient.ProcessList(processReq.Name, processReq.LastName);
+        processReq.Progress = 0;
     }
 
-    private void CheckStatus()
+    private async Task OnCheckStatusService()
     {
-        processReq = sqlClient.GetStatus(processReq.Guid);        
+        processReq = await apiClient.GetStatus(processReq.Guid);
     }
 
 }

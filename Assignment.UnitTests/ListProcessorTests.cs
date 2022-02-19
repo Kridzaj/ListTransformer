@@ -17,7 +17,7 @@ namespace Assignment.UnitTests
             string last = "testLast";
 
             var retVal = ListProcessor.PrepareList(1, 100, name, last);
-            Assert.AreEqual(name, retVal[2], "Wrong replacement of Name");
+            Assert.AreEqual(name, retVal[2].Value, "Wrong replacement of Name");
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Assignment.UnitTests
             string last = "testLast";
 
             var retVal = ListProcessor.PrepareList(1, 100, name, last);
-            Assert.AreEqual(last, retVal[4], "Wrong replacement of LastName");
+            Assert.AreEqual(last, retVal[4].Value, "Wrong replacement of LastName");
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Assignment.UnitTests
             string last = "testLast";
 
             var retVal = ListProcessor.PrepareList(1, 100, name, last);
-            Assert.AreEqual($"{name}{last}", retVal[14], "Wrong replacement of Name and LastName");
+            Assert.AreEqual($"{name}{last}", retVal[14].Value, "Wrong replacement of Name and LastName");
         }       
     }
 }
