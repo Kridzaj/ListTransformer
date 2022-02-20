@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment.ConsoleApp;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace Assignment.WebAPI.Controllers
 {
@@ -14,26 +15,51 @@ namespace Assignment.WebAPI.Controllers
     public class ListProcessorController : ControllerBase
     {
         private readonly ILogger<ListProcessorController> _logger;
-        private BackgroundListProcesses _bgListProcesses;
+        private readonly BackgroundListProcesses _bgListProcesses;
         public ListProcessorController(ILogger<ListProcessorController> logger, BackgroundListProcesses bgListProcesses)
         {
             _logger = logger;
             _bgListProcesses = bgListProcesses;
         }
         [HttpGet("{guid}", Name = "getStatus")]
-        public ProcessRequestDto GetStatus(Guid guid)
+        public ActionResult<ProcessRequestDto> GetStatus(Guid guid)
         {
-            return _bgListProcesses.GetStatus(guid);
+            _logger.LogInformation($"Fetching status for {guid}");
+            try
+            {
+                var retVal = _bgListProcesses.GetStatus(guid); 
+                if (retVal!=null)
+                {
+                    return retVal;
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,"Error on GetStatus");
+                return NotFound();
+            }
         }
 
         [HttpGet("{name}/{lastname}", Name = "getList")]
-        public Guid GetList(string name, string lastname)
+        public ActionResult<Guid> GetList(string name, string lastname)
         {
-            var guid = Guid.NewGuid();
-            Task newTask = Task.Run(() => _bgListProcesses.RegisterTask(guid, name, lastname));
-            return guid;
-        }
-
-        
+            _logger.LogInformation($"Received list for {name} {lastname}");
+            try
+            {
+                var guid = Guid.NewGuid();
+                Task newTask = Task.Run(() => _bgListProcesses.RegisterTask(guid, name, lastname));
+                return guid;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error on GetList");
+                return Problem();
+            }           
+        }        
     }
 }

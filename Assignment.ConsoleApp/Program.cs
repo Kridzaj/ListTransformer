@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Assignment.ConsoleApp
 {
@@ -62,6 +63,7 @@ namespace Assignment.ConsoleApp
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddLogging();
             services.AddScoped<IProcessRequestRepository, ProcessRequestRepository>();
             services.AddSingleton<IListProcessor, ListProcessorService>();
             ServiceProvider serviceProvider = services.BuildServiceProvider();

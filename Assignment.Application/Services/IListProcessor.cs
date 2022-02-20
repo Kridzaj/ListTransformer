@@ -6,7 +6,6 @@ namespace Assignment.Application.Services
     public interface IListProcessor
     {
         Guid ProcessList(string name, string lastName);
-
         ProcessRequestDto GetStatus(Guid guid);
     }
 }
