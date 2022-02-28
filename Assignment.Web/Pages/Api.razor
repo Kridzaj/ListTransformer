@@ -24,7 +24,7 @@
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="OnSendSerivce">Send</button>
+            <button class="btn btn-primary" @onclick="OnSendSerivce" disabled="@sendDisabled">Send</button>
         </td>
         <td>
             <input @bind="processReq.Guid" />
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td>
-            <button class="btn btn-primary" @onclick="OnCheckStatusService">Check Status</button>
+            <button class="btn btn-primary" @onclick="OnCheckStatusService" disabled="@checkDisabled">Check Status</button>
         </td>
         <td>
         </td>
@@ -75,6 +75,21 @@
 
 @code {
     private ProcessRequestDto processReq = new ProcessRequestDto();
+
+    bool sendDisabled {
+        get
+        {
+            return processReq.Name==null || processReq.Name.Trim() == String.Empty || processReq.LastName == null || processReq.LastName.Trim() == String.Empty;
+        }
+    }
+
+    bool checkDisabled
+    {
+        get
+        {
+            return processReq.Guid == Guid.Empty;
+        }
+    }
 
     private async Task OnSendSerivce()
     {
