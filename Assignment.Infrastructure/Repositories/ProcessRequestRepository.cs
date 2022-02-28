@@ -11,35 +11,18 @@ using System.Threading.Tasks;
 
 namespace Assignment.Infrastructure.Repositories
 {
-    public class ProcessRequestRepository : IProcessRequestRepository
+    public class ProcessRequestRepository : RepositoryBase<ProcessRequest>, IProcessRequestRepository
     {
-        protected readonly ABNContext _dbContext;
         private readonly DbSet<ProcessRequest> _entitySet;
 
         public ProcessRequestRepository(ABNContext dbContext) 
+            : base(dbContext)
         {
-            _dbContext = dbContext;
             _entitySet = _dbContext.Set<ProcessRequest>();
         }
 
-        public void SaveChanges()
-           => _dbContext.SaveChanges();
-
-        public ProcessRequest Add(ProcessRequest entity)
-        {
-            _dbContext.Add(entity);
-            SaveChanges();
-            return entity;
-        }
-
-        public IEnumerable<ProcessRequest> GetAll()
-        => _entitySet.AsEnumerable();
-
         public ProcessRequest GetByGuid(Guid guid)
         => _entitySet.FirstOrDefault(e => e.Guid == guid);
-
-        public ProcessRequest GetById(int id)
-        => _entitySet.FirstOrDefault(e => e.ProcessRequestId == id);
 
         public void ExecuteRequest(Guid guid)
         {
