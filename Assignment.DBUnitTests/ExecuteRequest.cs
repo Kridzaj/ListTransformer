@@ -48,12 +48,6 @@ namespace Assignment.DBUnitTests
             notEmptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             checksumCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
             // 
-            // dbo_ExecuteRequestTestData
-            // 
-            this.dbo_ExecuteRequestTestData.PosttestAction = null;
-            this.dbo_ExecuteRequestTestData.PretestAction = null;
-            this.dbo_ExecuteRequestTestData.TestAction = dbo_ExecuteRequestTest_TestAction;
-            // 
             // dbo_ExecuteRequestTest_TestAction
             // 
             dbo_ExecuteRequestTest_TestAction.Conditions.Add(rowCountCondition1);
@@ -76,9 +70,15 @@ namespace Assignment.DBUnitTests
             // 
             // checksumCondition1
             // 
-            checksumCondition1.Checksum = "-1853036655";
+            checksumCondition1.Checksum = "-524681431";
             checksumCondition1.Enabled = true;
             checksumCondition1.Name = "checksumCondition1";
+            // 
+            // dbo_ExecuteRequestTestData
+            // 
+            this.dbo_ExecuteRequestTestData.PosttestAction = null;
+            this.dbo_ExecuteRequestTestData.PretestAction = null;
+            this.dbo_ExecuteRequestTestData.TestAction = dbo_ExecuteRequestTest_TestAction;
         }
 
         #endregion
